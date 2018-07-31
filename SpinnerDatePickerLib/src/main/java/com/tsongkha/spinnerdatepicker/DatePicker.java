@@ -87,12 +87,14 @@ public class DatePicker extends FrameLayout {
 
     private boolean mIsDayShown = true;
 
+    private final Locale nlLocale = new Locale("nld");
+
     DatePicker(ViewGroup root, int numberPickerStyle) {
         super(root.getContext());
         mContext = root.getContext();
 
         // initialization based on locale
-        setCurrentLocale(Locale.getDefault());
+        setCurrentLocale(nlLocale);
 
         LayoutInflater inflater = (LayoutInflater) new ContextThemeWrapper(mContext,
                                                                            numberPickerStyle).getSystemService(
@@ -273,7 +275,7 @@ public class DatePicker extends FrameLayout {
         mCurrentDate = getCalendarForLocale(mCurrentDate, locale);
 
         mNumberOfMonths = mTempDate.getActualMaximum(Calendar.MONTH) + 1;
-        mShortMonths = new DateFormatSymbols().getShortMonths();
+        mShortMonths = new DateFormatSymbols(nlLocale).getShortMonths();
 
         if (usingNumericMonths()) {
             // We're in a locale where a date should either be all-numeric, or all-text.
@@ -323,7 +325,7 @@ public class DatePicker extends FrameLayout {
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
             pattern = getOrderJellyBeanMr2();
         } else {
-            pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), "yyyyMMMdd");
+            pattern = DateFormat.getBestDateTimePattern(nlLocale, "yyyyMMMdd");
         }
         char[] order = ICU.getDateFormatOrder(pattern);
         final int spinnerCount = order.length;

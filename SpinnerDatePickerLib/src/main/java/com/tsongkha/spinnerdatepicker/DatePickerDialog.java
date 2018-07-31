@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * A fork of the Android Open Source Project DatePickerDialog class
@@ -56,15 +57,18 @@ public class DatePickerDialog extends AlertDialog implements OnClickListener,
         super(context, theme);
 
         mCallBack = callBack;
-        mTitleDateFormat = DateFormat.getDateInstance(DateFormat.LONG);
+        mTitleDateFormat = DateFormat.getDateInstance(DateFormat.LONG, new Locale("nld"));
         mIsDayShown = isDayShown;
         mIsTitleShown = isTitleShown;
 
         updateTitle(defaultDate);
 
-        setButton(BUTTON_POSITIVE, context.getText(android.R.string.ok),
+        CharSequence cancel = "Annuleren";
+        CharSequence ok = "Ok";
+
+        setButton(BUTTON_POSITIVE, ok,
                 this);
-        setButton(BUTTON_NEGATIVE, context.getText(android.R.string.cancel),
+        setButton(BUTTON_NEGATIVE, cancel,
                 (OnClickListener) null);
 
         LayoutInflater inflater =
